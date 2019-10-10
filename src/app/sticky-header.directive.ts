@@ -6,6 +6,7 @@ import { Directive, ElementRef } from '@angular/core';
 export class StickyHeaderDirective {
 
   private _element : HTMLElement;
+  private _isSticky : boolean = false;
 
   constructor(el : ElementRef) {    
 
@@ -14,12 +15,17 @@ export class StickyHeaderDirective {
     /* tap into the document scroll event */
     document.addEventListener('scroll', () => {
       const hdrTop = this._element.getBoundingClientRect();
-      //console.log(this._element.getBoundingClientRect());
       const docTop = this._getDocumentPosition();
-      if(docTop > hdrTop.height) {
-        console.log("stick");
+
+      if(docTop > hdrTop.height && !this._isSticky) {
+        this._makeSticky();
+        this._isSticky = true;
+      }  else {
+        if(docTop < hdrTop.height && this._isSticky) {
+          this._resetSticky();
+          this._isSticky = false;
+        }
       }
-      //console.log(this._getDocumentPosition());      
     });
    }
 
@@ -33,4 +39,17 @@ export class StickyHeaderDirective {
       return top;
    }
 
+  private _makeSticky() {
+     this._element.style.cssText += 'position: -webkit-sticky; position: sticky; '; 
+     this._element.style.cssText += `box-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+                                      -webkit-boxshadow: 1px 1px 2px rgba(0,0,0,0.5);`;     
+    this._element.style.top = '0px';    
+  }
+
+  private _resetSticky() {
+    this._element.style.position = '';
+    this._element.style.top = '';
+    this._element.style.boxShadow = '';
+    this._element.style.webkitBoxShadow = '';
+  }
 }

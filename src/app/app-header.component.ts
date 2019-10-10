@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-header',
-  template: `<h1>{{name}}</h1>`,
+  template: `<h1 appStickyHeader>{{name}}</h1>`,
   styles: [`
   h1 {   
     width: 100%;
