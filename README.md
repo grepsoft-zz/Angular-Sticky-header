@@ -1,3 +1,3 @@
 # angular-9awtne
 
-[Edit on StackBlitz ⚡️](https://stackblitz.com/edit/angular-9awtne)
+A demo project by Grepsoft showing how to develop a sticky header in Angular
