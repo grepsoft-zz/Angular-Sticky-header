@@ -14,14 +14,14 @@ export class StickyHeaderDirective {
 
     /* tap into the document scroll event */
     document.addEventListener('scroll', () => {
-      const hdrTop = this._element.getBoundingClientRect();
       const docTop = this._getDocumentPosition();
+      const offset = this._element.offsetTop;
 
-      if(docTop > hdrTop.height && !this._isSticky) {
+      if(docTop > offset && !this._isSticky) {
         this._makeSticky();
         this._isSticky = true;
       }  else {
-        if(docTop < hdrTop.height && this._isSticky) {
+        if(docTop < offset && this._isSticky) {
           this._resetSticky();
           this._isSticky = false;
         }
