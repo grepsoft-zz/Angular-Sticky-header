@@ -7,15 +7,16 @@ export class StickyHeaderDirective {
 
   private _element : HTMLElement;
   private _isSticky : boolean = false;
-
+  private _offsetTop : number = 0;
   constructor(el : ElementRef) {    
 
     this._element = el.nativeElement;
+    this._offsetTop = this._element.offsetTop;
 
     /* tap into the document scroll event */
     document.addEventListener('scroll', () => {
       const docTop = this._getDocumentPosition();
-      const offset = this._element.offsetTop;
+      const offset = this._offsetTop;
 
       if(docTop > offset && !this._isSticky) {
         this._makeSticky();
